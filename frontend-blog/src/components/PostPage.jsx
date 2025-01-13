@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import posts from '../../data/posts';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import PostList from './PostList';
 
 
 const initialFormData = {
@@ -16,7 +17,7 @@ function PostPage() {
     const [newPost, setNewPost] = useState(initialFormData);
 
     const navigate = useNavigate()
-    
+
     useEffect(() => {
         getPosts();
     }, []);
@@ -61,10 +62,22 @@ function PostPage() {
             setPost(newPostList)
         })
     };
-    
+
+    const globalProviderValue = {
+        createPost,
+        newPost,
+        handleChange,
+        post,
+        deletePost
+    }
+
     return (
         <>
-            <div>
+            <h1>Titolo della pagina dei post</h1>
+
+            <PostList createPost={createPost} newPost={newPost} handleChange={handleChange} post={post} deletePost={deletePost} />
+
+            {/* <div>
                 <form onSubmit={createPost}>
                     <h2>Aggiungi un nuovo post</h2>
                     <label htmlFor="title">Contenuto</label>
@@ -86,7 +99,7 @@ function PostPage() {
                         <button onClick={() => deletePost(curPost.id)}>Cancella</button>
                     </div>
                 ))
-                : <p>La pagina è vuota</p>}
+                : <p>La pagina è vuota</p>} */}
         </>
     )
 }

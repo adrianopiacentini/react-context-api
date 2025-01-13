@@ -5,22 +5,29 @@ import PostPage from './components/PostPage'
 import Contacts from './components/Contacts'
 import AppLayout from './components/AppLayout'
 import ShowPost from './components/ShowPost'
+import GlobalContext from './contexts/GlobalContext'
 
 function App() {
 
+  const globalProviderValue = {
+
+  }
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route Component={AppLayout}>
-          <Route index Component={HomePage} />
-          <Route path='/contacts' Component={Contacts} />
-          <Route path='/postpage'>
-            <Route index Component={PostPage} />
-            <Route path=':id' Component={ShowPost}/>
+    <GlobalContext.Provider value={globalProviderValue}>
+      <BrowserRouter>
+        <Routes>
+          <Route Component={AppLayout}>
+            <Route index Component={HomePage} />
+            <Route path='/contacts' Component={Contacts} />
+            <Route path='/postpage'>
+              <Route index Component={PostPage} />
+              <Route path=':id' Component={ShowPost} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </GlobalContext.Provider>
   );
 }
 
